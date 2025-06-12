@@ -1,0 +1,21 @@
+{
+  "name": "demosequalize",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "sequelize-auto": "^0.8.8"
+  },
+  "dependencies": {
+    "@sequelize/postgres": "^7.0.0-alpha.46",
+    "pg": "^8.16.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.7"
+  }
+}

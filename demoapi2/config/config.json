@@ -1,0 +1,30 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "Ctek2314",
+    "database": "dbexample",
+    "host": "localhost",
+    "port": "5432",
+    "ssl": false,
+    "dialect": "postgres",
+    "logging": false,
+    "dialectOptions": {
+    }
+  },
+  "test": {
+     "username": "postgres",
+    "password": "Ctek2314",
+    "database": "dbexample",
+    "host": "localhost",
+    "port": "5432",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "Ctek2314",
+    "database": "dbexample",
+    "host": "localhost",
+    "port": "5432",
+    "dialect": "postgres"
+  }
+}
