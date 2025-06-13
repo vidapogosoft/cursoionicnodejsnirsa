@@ -1,4 +1,7 @@
+const { Model } = require('sequelize');
 const db = require('../models');
+//const category = require('../models/categorias');
+const category = db.categorias;
 const product = db.productos;
 
 console.log('modelo=>', db.productos);
@@ -7,7 +10,13 @@ exports.findAll = async (req, res ) => {
 
     try{
 
-        const productos = await product.findAll();
+        const productos = await product.findAll(
+            {
+            
+                include: { model: category, as: 'categorias', attributes: ['idcategoria', 'name']  }
+
+            }
+        );
         res.status(200).send(productos);
     }catch(error)
     {
@@ -25,7 +34,10 @@ exports.findOne = async (req, res ) => {
     try{
 
         const id = req.params.idproducto;
-        const productos = await product.findByPk(id);
+        const productos = await product.findByPk(id, 
+            {
+                include: { model: category, as: 'categorias', attributes: ['idcategoria', 'name', 'description']  }
+            });
         if(!productos)
         {
             return res.status(400).send({message: 'Producto no encontrado'});
@@ -44,12 +56,22 @@ exports.findOne = async (req, res ) => {
 exports.create = async (req, res) => {
 try {
         console.log(req.body);
-        const { nombreproducto, precio, descripcion } = req.body;
+        const { nombreproducto, precio, descripcion, idcategoria } = req.body;
+        
         /*if (!nombreproducto || !precio || descripcion) {
         return res.status(400).send({ message: 'El nombre, precio y descripcion son campos requeridos.' });
         }*/
-            const productos = await product.create({ nombreproducto, precio, descripcion });
-            res.status(202).send(productos);
+        
+        const categoriaid = await category.findByPk(idcategoria);
+
+        if(!categoriaid)
+        {
+             return res.status(400).send({message: 'Categoria no existe'});
+        }
+
+        const productos = await product.create({ nombreproducto, precio, descripcion, idcategoria});
+        res.status(202).send(productos);
+        
         } 
         catch (error) 
         {
@@ -64,9 +86,17 @@ try {
 //actualizacion
 exports.update = async (req, res) => {
 
+    const { idcategoria } = req.body;
     const id = req.params.idproducto;
 
     try {
+
+         const categoriaid = await category.findByPk(idcategoria);
+
+        if(!categoriaid)
+        {
+             return res.status(400).send({message: 'Categoria no existe'});
+        }
 
       const [num] = await product.update(req.body, { where: { idproducto: id } })
     

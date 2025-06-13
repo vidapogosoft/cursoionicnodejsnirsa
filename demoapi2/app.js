@@ -47,3 +47,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`El servidor está corriendo en el puerto ${PORT}.`);
 });
+
+//npx sequelize-auto -h localhost -d dbexample -u postgres -x Ctek2314 -p 5432 --dialect postgres -o ./models

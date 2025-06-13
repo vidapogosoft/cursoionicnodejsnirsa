@@ -19,6 +19,14 @@ module.exports = function(sequelize, DataTypes) {
     descripcion: {
       type: DataTypes.TEXT,
       allowNull: true
+    },
+    idcategoria: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'categorias',
+        key: 'idcategoria'
+      }
     }
   }, {
     sequelize,
