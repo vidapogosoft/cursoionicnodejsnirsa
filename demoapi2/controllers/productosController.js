@@ -1,8 +1,10 @@
-const { Model } = require('sequelize');
 const db = require('../models');
 //const category = require('../models/categorias');
 const category = db.categorias;
 const product = db.productos;
+
+const dto = require('../dto/productosdto');
+
 
 console.log('modelo=>', db.productos);
 
@@ -18,6 +20,53 @@ exports.findAll = async (req, res ) => {
             }
         );
         res.status(200).send(productos);
+    }catch(error)
+    {
+        console.error('Error', error);
+        res.status(400).send({  
+            message: error.message
+        });
+    }
+
+
+};
+
+exports.findAllv2 = async (req, res ) => {
+
+    try{
+
+        const productos = await product.findAll(
+            {
+            
+                include: { model: category, as: 'categorias', attributes: ['idcategoria', 'name']  }
+
+            }
+        );
+
+        const proddto = new dto(productos);
+
+        res.status(200).send(proddto);
+    }catch(error)
+    {
+        console.error('Error', error);
+        res.status(400).send({  
+            message: error.message
+        });
+    }
+
+
+};
+
+
+exports.findAllv3 = async (req, res ) => {
+
+    try{
+
+        const prod = await  db.sequelize.query('SELECT * FROM productos', {
+                model: product,
+                mapToModel: true
+                });
+        res.status(200).send(prod);
     }catch(error)
     {
         console.error('Error', error);

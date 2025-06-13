@@ -42,6 +42,13 @@ const productRoutes = require('./routes/productRoutes');
 app.use('/api/products', productRoutes);
 
 
+// Rutas de categorias
+/*
+const categoryRoutes = require('./routes/categoriasRoutes');
+app.use('/api/category', categoryRoutes);
+*/
+
+
 // Establecer puerto, escuchar solicitudes
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

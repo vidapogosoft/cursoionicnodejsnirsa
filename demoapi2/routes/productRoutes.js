@@ -6,6 +6,9 @@ const products = require('../controllers/productosController.js');
 // Obtener todos los productos
 router.get('/', products.findAll);
 
+//sequalize con query raw
+router.get('/raw', products.findAllv3);
+
 //consulta con filtro
 router.get('/:idproducto', products.findOne);
 
