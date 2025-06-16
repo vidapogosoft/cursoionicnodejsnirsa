@@ -8,6 +8,23 @@ const dto = require('../dto/productosdto');
 
 console.log('modelo=>', db.productos);
 
+exports.findAllv0 = async (req, res ) => {
+
+    try{
+
+        const productos = await product.findAll();
+        res.status(200).send(productos);
+    }catch(error)
+    {
+        console.error('Error', error);
+        res.status(400).send({  
+            message: error.message
+        });
+    }
+
+
+};
+
 exports.findAll = async (req, res ) => {
 
     try{

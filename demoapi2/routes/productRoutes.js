@@ -4,6 +4,8 @@ const products = require('../controllers/productosController.js');
 
 
 // Obtener todos los productos
+router.get('/v0', products.findAllv0);
+
 router.get('/', products.findAll);
 
 //sequalize con query raw
