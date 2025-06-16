@@ -15,6 +15,8 @@ router.get('/raw', products.findAllv3);
 
 //consulta con filtro
 router.get('/:idproducto', products.findOne);
+router.get('/raw/:idproducto', products.findOnev2);
+router.get('/raw2/:idproducto/:idcategoria', products.findOnev3);
 
 // post => registro de datos
 router.post('/', products.create);

@@ -1,6 +1,7 @@
 const db = require('../models');
 const category = db.categorias;
 const product = db.productos;
+const { QueryTypes } = require('sequelize');
 
 const dto = require('../dto/productosdto');
 
@@ -111,6 +112,49 @@ exports.findOne = async (req, res ) => {
             message: error.message
         });
     }
+};
+
+exports.findOnev2 = async (req, res ) => {
+
+    try{
+
+        const id = req.params.idproducto;
+        const prod = await  db.sequelize.query('SELECT * FROM productos where idproducto=?', {
+                replacements: [id],
+                type: QueryTypes.SELECT
+                });
+        res.status(200).send(prod);
+    }catch(error)
+    {
+        console.error('Error', error);
+        res.status(400).send({  
+            message: error.message
+        });
+    }
+
+
+};
+
+exports.findOnev3 = async (req, res ) => {
+
+    try{
+
+        const id = req.params.idproducto;
+        const idcategoria = req.params.idcategoria;
+        const prod = await  db.sequelize.query('SELECT * FROM productos where idproducto= :idprod and idcategoria= :idcat', {
+                replacements: { idprod: id, idcat: idcategoria  },
+                 type: QueryTypes.SELECT,
+                });
+        res.status(200).send(prod);
+    }catch(error)
+    {
+        console.error('Error', error);
+        res.status(400).send({  
+            message: error.message
+        });
+    }
+
+
 };
 
 // Crear un nuevo producto
