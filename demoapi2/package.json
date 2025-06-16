@@ -19,6 +19,7 @@
     "express": "^5.1.0",
     "pg": "^8.16.0",
     "pg-hstore": "^2.3.4",
+    "router": "^2.2.0",
     "sequelize": "^6.37.7"
   },
   "devDependencies": {
