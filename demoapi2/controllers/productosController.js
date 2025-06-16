@@ -1,12 +1,14 @@
 const db = require('../models');
-//const category = require('../models/categorias');
 const category = db.categorias;
 const product = db.productos;
 
 const dto = require('../dto/productosdto');
 
-
 console.log('modelo=>', db.productos);
+console.log('modelo=>', db.categorias);
+
+console.log('productos associations=>', db.Producto.associations);
+console.log('categorias associations=>', db.Categoria.associations);
 
 exports.findAllv0 = async (req, res ) => {
 
@@ -25,37 +27,30 @@ exports.findAllv0 = async (req, res ) => {
 
 };
 
-exports.findAll = async (req, res ) => {
 
-    try{
-
-        const productos = await product.findAll(
-            {
-            
-                include: { model: category, as: 'categorias', attributes: ['idcategoria', 'name']  }
-
-            }
-        );
-        res.status(200).send(productos);
-    }catch(error)
-    {
-        console.error('Error', error);
-        res.status(400).send({  
-            message: error.message
+exports.findAll = async (req, res) => {
+  try {
+    const productos = await db.Producto.findAll(
+        {
+            include: { model: category, as: 'categorias' }
         });
-    }
-
-
+    res.status(200).send(productos);
+  } catch (error) {
+    console.error('Error', error);
+    res.status(400).send({
+      message: error.message
+    });
+  }
 };
 
 exports.findAllv2 = async (req, res ) => {
 
     try{
 
-        const productos = await product.findAll(
+        const productos = await db.Producto.findAll(
             {
             
-                include: { model: category, as: 'categorias', attributes: ['idcategoria', 'name']  }
+                include: { model: category, as: 'categorias'  }
 
             }
         );
@@ -100,7 +95,7 @@ exports.findOne = async (req, res ) => {
     try{
 
         const id = req.params.idproducto;
-        const productos = await product.findByPk(id, 
+        const productos = await db.Producto.findByPk(id, 
             {
                 include: { model: category, as: 'categorias', attributes: ['idcategoria', 'name', 'description']  }
             });

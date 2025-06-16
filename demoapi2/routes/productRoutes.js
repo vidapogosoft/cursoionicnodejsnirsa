@@ -8,6 +8,8 @@ router.get('/v0', products.findAllv0);
 
 router.get('/', products.findAll);
 
+router.get('/dto', products.findAllv2);
+
 //sequalize con query raw
 router.get('/raw', products.findAllv3);
 
