@@ -55,7 +55,7 @@ exports.findAllv2 = async (req, res ) => {
             }
         );
 
-        const proddto = new dto(productos);
+        const proddto = dto.fromList(productos);
 
         res.status(200).send(proddto);
     }catch(error)
