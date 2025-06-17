@@ -4,6 +4,8 @@ const product = db.productos;
 const { QueryTypes } = require('sequelize');
 
 const dto = require('../dto/productosdto');
+const { param } = require('../routes/productRoutes');
+const { json } = require('body-parser');
 
 console.log('modelo=>', db.productos);
 console.log('modelo=>', db.categorias);
@@ -254,5 +256,61 @@ exports.delete = async (req, res) => {
             message: error.message || 'Error al eiminar el producto con idproducto: ' + id
             });
         }
+
+};
+
+//funciones con raw query
+exports.funcrawquery = async (req, res ) => {
+
+    try{
+
+        const id = req.params.idproducto;
+        const prod = await  db.sequelize.query('SELECT * FROM consfproductocategoria (?)', {
+                replacements: [id],
+                type: QueryTypes.SELECT
+                });
+        res.status(200).send(prod);
+    }catch(error)
+    {
+        console.error('Error', error);
+        res.status(400).send({  
+            message: error.message
+        });
+    }
+
+
+};
+
+//procedures con raw query
+exports.procrawquery = async (req, res ) => {
+
+    try{
+
+        const id = req.params.idproducto;
+        const query = `
+            DO $$
+            DECLARE
+                v_id_prod INTEGER;
+                v_nombre_prod VARCHAR(255);
+                v_nombre_cat VARCHAR(255);
+            begin
+                CALL consprocproductocategoria(param, v_id_prod, v_nombre_prod, v_nombre_cat);
+                RAISE NOTICE 'ID Producto: %, Nombre Producto: %, Categoría: %', v_id_prod, v_nombre_prod, v_nombre_cat;
+            END $$;
+        `;
+        const prod = await  db.sequelize.query(query.replace('param', ':idprod'), {
+                 replacements: { idprod: id},
+                type: QueryTypes.SELECT
+                });
+        res.status(200).json(prod);
+        console.log(prod);
+    }catch(error)
+    {
+        console.error('Error', error);
+        res.status(400).send({  
+            message: error.message
+        });
+    }
+
 
 };

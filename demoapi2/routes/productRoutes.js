@@ -12,6 +12,8 @@ router.get('/dto', products.findAllv2);
 
 //sequalize con query raw
 router.get('/raw', products.findAllv3);
+router.get('/raw/func/:idproducto', products.funcrawquery);
+router.get('/raw/proc/:idproducto', products.procrawquery);
 
 //consulta con filtro
 router.get('/:idproducto', products.findOne);
