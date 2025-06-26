@@ -1,0 +1,7 @@
+{
+  "name": "sliteapp1",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
