@@ -13,5 +13,13 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+
+  <ion-button expand="full" (click)="takePicture()" >Tomar Foto</ion-button>
+
+  <div *ngIf="capturedImage">
+    <h2>Imagen Tomada:</h2>
+    <img [src]="capturedImage" alt="imagen ionic" style="max-width: 100%; height:auto;"     />
+  </div>
+
+  
 </ion-content>
