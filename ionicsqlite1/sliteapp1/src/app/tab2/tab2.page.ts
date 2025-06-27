@@ -65,7 +65,7 @@ export class Tab2Page implements OnInit {
         this.loadUsers();
         this.showAlert("Exito", "Registro de usuario correcto");
       } catch (error) {
-        this.showAlert("Error", "Eroro en registro");
+        this.showAlert("Error", "Error en registro");
       }
     }
     else
