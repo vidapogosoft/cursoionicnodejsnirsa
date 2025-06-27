@@ -29,14 +29,10 @@ export class Tab2Page implements OnInit {
   ) {}
 
   ngOnInit() {
-    
     this.databaservice.getdatabaseState().subscribe((rdy) => {
       if(rdy)
       {
         this.loadUsers();
-      }
-      else{
-        this.showAlert('Advertencia', 'No esta lista la base de datos del dispositivo');
       }
     });
     
@@ -72,6 +68,12 @@ export class Tab2Page implements OnInit {
     {
       this.showAlert('Advertencia', 'Introduce nombre y email');
     }
+  }
+
+
+  SelectUser(user: User)
+  {
+    this.selectedUser = {...user};
   }
 
   async showAlert(headerin: string, messagein: string)

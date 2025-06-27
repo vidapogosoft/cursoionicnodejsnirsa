@@ -41,12 +41,31 @@
                 </ion-label>
               </ion-item>
               <ion-item-options side="end">
-                <ion-item-option color="primary">Editar</ion-item-option>
+                <ion-item-option color="primary" (click)="SelectUser(user)">Editar</ion-item-option>
                 <ion-item-option color="danger">Borrar</ion-item-option>
               </ion-item-options>
           </ion-item-sliding>
       </ion-list>
 
+      <hr *ngIf="selectedUser" />
+      <h2 *ngIf="selectedUser" >Editar Usuario</h2>
+      <div *ngIf="selectedUser">
+          <ion-item>
+        <ion-label position="floating">ID:</ion-label>
+        <ion-input [value]="selectedUser.id" readonly="true" ></ion-input>    
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Nombre:</ion-label>
+        <ion-input [value]="selectedUser.name"></ion-input>    
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Email:</ion-label>
+        <ion-input [value]="selectedUser.email"></ion-input>    
+      </ion-item>
+      <ion-button expand="block">Guardar Cambios</ion-button>
+      <ion-button (click)="selectedUser = null" color="medium" >Cancelar</ion-button>
+      </div>
+    
   </div>
 
 </ion-content>
