@@ -12,6 +12,41 @@
       <ion-title size="large">Tab 2</ion-title>
     </ion-toolbar>
   </ion-header>
+  
+  <div id="container">
+      <h2>Registro Nuevo Usuario</h2>
+      <ion-item>
+        <ion-label position="floating" >Nombre:</ion-label>
+        <ion-input [(ngModel)] = "newUser.name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" >Email:</ion-label>
+        <ion-input type="email" [(ngModel)] = "newUser.email"></ion-input>
+      </ion-item>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+      <ion-button expand="block" (click)="addUser()">Registrar Usuario</ion-button>
+
+      <hr/>
+
+      <h2>Lista de usuarios</h2>
+      <ion-list>
+          <ion-item *ngIf="users.length === 0" >
+            <ion-label>No hay usuarios registrados</ion-label>
+          </ion-item>
+          <ion-item-sliding *ngFor="let user of users">
+              <ion-item>
+                <ion-label>
+                  <h3>{{user.name}}</h3>
+                  <p>{{user.email}}</p>
+                </ion-label>
+              </ion-item>
+              <ion-item-options side="end">
+                <ion-item-option color="primary">Editar</ion-item-option>
+                <ion-item-option color="danger">Borrar</ion-item-option>
+              </ion-item-options>
+          </ion-item-sliding>
+      </ion-list>
+
+  </div>
+
 </ion-content>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
-import { BehaviorSubject, Observable, retry } from 'rxjs'
+import { BehaviorSubject, Observable} from 'rxjs'
 
 interface User {
 
@@ -22,7 +22,7 @@ export class DatabaseService {
 
   constructor(private platform: Platform, private sqlite: SQLite) 
   {
-    this.platform.ready().then(()=> { this.createDatabase()  })
+    this.platform.ready().then(()=> { this.createDatabase();})
   }
 
   getdatabaseState(): Observable<boolean>{
@@ -30,22 +30,20 @@ export class DatabaseService {
   }
 
 
-  async createDatabase()
-  {
-    try{
-          this.database = await this.sqlite.create({
-            name: 'dbexmple1',
-            location: 'default'
-          });
+  async createDatabase() {
+  try {
+    this.database = await this.sqlite.create({
+      name: 'dbexmple1',
+      location: 'default'
+    });
 
-          await this.createTables();
-          this.dbready.next(true);
-          console.log('Base creada');
-    }
-    catch (e){
-        console.error("Error:", JSON.stringify(e));
-    }
+    await this.createTables();
+    this.dbready.next(true);
+    console.log('Base de datos creada y lista.'); 
+  } catch (e) {
+    console.error("Error al crear o abrir la base de datos:", e);
   }
+}
 
   private async createTables()
   {
