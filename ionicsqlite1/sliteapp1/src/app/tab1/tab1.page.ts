@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import {Camera, CameraResultType, CameraSource} from '@capacitor/camera';
+import {Camera, CameraResultType, CameraSource, Photo} from '@capacitor/camera';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 
 @Component({
@@ -53,6 +53,24 @@ export class Tab1Page {
       } catch (error) {
         
       }
+  }
+
+  async openGallery()
+  {
+    try {
+      
+      const image: Photo = await Camera.getPhoto({
+            quality: 90,
+            resultType: CameraResultType.Uri,
+            source: CameraSource.Photos
+            //saveToGallery: true
+        });
+
+         this.capturedImage = image.webPath
+
+    } catch (error) {
+      
+    }
   }
 
 }

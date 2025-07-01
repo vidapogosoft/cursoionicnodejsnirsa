@@ -13,5 +13,29 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Mi ubicacion Actual</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+          <p *ngIf="latitude"  >Latitud: {{latitude}}</p>
+          <p *ngIf="longitude" >Longitud: {{longitude}}</p>
+          <p *ngIf="!latitude && !longitude" >Obteniendo ubicacion</p>
+          <ion-button expand="block" (click)="getCurrentLocation()">
+            <ion-icon slot="start" name="locate"></ion-icon>
+            Actualizar Ubicacion
+          </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+   <ion-card *ngIf="latitude && longitude">
+    <ion-card-header>
+      <ion-card-title>Mapa de Google</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div #map id="map" style="height: 300px; width: 100%;"></div>
+    </ion-card-content>
+  </ion-card>
+
+
 </ion-content>
