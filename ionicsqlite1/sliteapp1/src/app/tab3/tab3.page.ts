@@ -8,78 +8,87 @@ declare var google: any;
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss'],
-  standalone: false,
+  standalone: false, // Asegúrate de que esto sea correcto para la configuración de tu proyecto
 })
 export class Tab3Page implements OnInit {
- @ViewChild('map', { static: false }) mapElement: ElementRef | undefined;
+  @ViewChild('map', { static: false }) mapElement: ElementRef | undefined;
   map: any;
   latitude: number | undefined;
   longitude: number | undefined;
-  marker: any; 
+  marker: any;
 
-  constructor( private platform: Platform ) {}
+  constructor(private platform: Platform) {}
 
   async ngOnInit() {
-    await this.platform.ready(); 
+    await this.platform.ready();
     this.getCurrentLocation();
   }
 
   async getCurrentLocation() {
     try {
-
       const options: PositionOptions = {
         enableHighAccuracy: true,
-        timeout: 1000,
-        maximumAge: 0
+        timeout: 10000, // Aumentado el tiempo de espera para mejor precisión en algunos casos
+        maximumAge: 0,
       };
 
       const position = await Geolocation.getCurrentPosition(options);
       this.latitude = position.coords.latitude;
       this.longitude = position.coords.longitude;
-      
-      console.log('Position Actual:', this.latitude, this.longitude );
-      
-      this.loadMap();
 
+      console.log('Posición Actual:', this.latitude, this.longitude);
+
+      this.loadMap();
     } catch (error) {
-      console.error("Error en location", error);
-      alert("No se pudo obtner la ubicacion, Verficar los permisos");
+      console.error('Error al obtener la ubicación:', error);
+      alert('No se pudo obtener su ubicación. Por favor, verifique los permisos.');
     }
   }
 
   loadMap() {
-    if (this.latitude && this.longitude && this.mapElement) {
-      const latLng = new google.maps.LatLng(this.latitude, this.longitude);
+    // Asegurarse de que mapElement esté disponible antes de intentar acceder a nativeElement
+    if (!this.mapElement) {
+      console.error('Elemento del mapa no encontrado.');
+      return;
+    }
 
+    if (this.latitude !== undefined && this.longitude !== undefined) {
+      const latLng = new google.maps.LatLng(this.latitude, this.longitude);
       const mapOptions = {
         center: latLng,
         zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
       };
 
-     
-      if (this.map) {
+      if (!this.map) {
+        // Inicializar el mapa solo una vez
+        this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+        this.addMarker(latLng);
+      } else {
+        // Si el mapa ya existe, solo actualiza su centro y la posición del marcador
         this.map.setCenter(latLng);
         if (this.marker) {
           this.marker.setPosition(latLng);
         } else {
           this.addMarker(latLng);
         }
-      } else {
-        
-        this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-        this.addMarker(latLng);
       }
+    } else {
+      console.warn('Latitud o Longitud indefinidas. No se puede cargar el mapa.');
     }
   }
 
   addMarker(latLng: any) {
-    this.marker = new google.maps.Marker({
+    if (this.marker) {
+      // Si ya existe un marcador, actualiza su posición en lugar de crear uno nuevo
+      this.marker.setPosition(latLng);
+    } else {
+      this.marker = new google.maps.Marker({
         map: this.map,
         position: latLng,
         animation: google.maps.Animation.DROP,
-        title: 'Mi Ubicacion'
-    });
+        title: 'Mi Ubicación',
+      });
+    }
   }
-
 }
