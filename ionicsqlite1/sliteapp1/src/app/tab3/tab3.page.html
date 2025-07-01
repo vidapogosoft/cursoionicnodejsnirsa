@@ -21,6 +21,13 @@
           <p *ngIf="latitude"  >Latitud: {{latitude}}</p>
           <p *ngIf="longitude" >Longitud: {{longitude}}</p>
           <p *ngIf="!latitude && !longitude" >Obteniendo ubicacion</p>
+
+          <ion-item>
+    <ion-label class="ion-text-wrap">
+      Dirección Actual: {{ currentAddress }}
+    </ion-label>
+  </ion-item>
+
           <ion-button expand="block" (click)="getCurrentLocation()">
             <ion-icon slot="start" name="locate"></ion-icon>
             Actualizar Ubicacion

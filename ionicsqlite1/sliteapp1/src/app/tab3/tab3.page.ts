@@ -16,6 +16,7 @@ export class Tab3Page implements OnInit {
   latitude: number | undefined;
   longitude: number | undefined;
   marker: any;
+  currentAddress: string = 'Obteniendo dirección...';
 
   constructor(private platform: Platform) {}
 
@@ -39,6 +40,7 @@ export class Tab3Page implements OnInit {
       console.log('Posición Actual:', this.latitude, this.longitude);
 
       this.loadMap();
+      this.getAddressFromCoordinates(this.latitude, this.longitude);
     } catch (error) {
       console.error('Error al obtener la ubicación:', error);
       alert('No se pudo obtener su ubicación. Por favor, verifique los permisos.');
@@ -89,6 +91,33 @@ export class Tab3Page implements OnInit {
         animation: google.maps.Animation.DROP,
         title: 'Mi Ubicación',
       });
+    }
+  }
+  
+  async getAddressFromCoordinates(lat: number, lng: number) {
+    if (typeof google === 'undefined' || !google.maps || !google.maps.Geocoder) {
+      console.warn('Google Maps Geocoder no está disponible. Asegúrese de que la API de Google Maps esté cargada correctamente.');
+      this.currentAddress = 'API de Geocodificación no disponible.';
+      return;
+    }
+
+    const geocoder = new google.maps.Geocoder();
+    const latLng = new google.maps.LatLng(lat, lng);
+
+    try {
+      const response = await geocoder.geocode({ 'location': latLng });
+
+      if (response.results && response.results.length > 0) {
+        this.currentAddress = response.results[0].formatted_address;
+        console.log('Dirección obtenida:', this.currentAddress);
+      } else {
+        this.currentAddress = 'Dirección no encontrada.';
+        console.warn('No se encontraron resultados para la geocodificación inversa.');
+      }
+    } catch (error) {
+      console.error('Error en la geocodificación inversa:', error);
+      this.currentAddress = 'Error al obtener la dirección.';
+      alert('Error al obtener la dirección de su ubicación.');
     }
   }
 }
