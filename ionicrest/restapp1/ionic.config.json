@@ -1,0 +1,7 @@
+{
+  "name": "restapp1",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
