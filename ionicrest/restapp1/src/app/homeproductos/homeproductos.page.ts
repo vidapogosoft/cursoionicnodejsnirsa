@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 import { DataService } from '../services/data.service';
-import { Data } from '@angular/router';
 
 @Component({
   selector: 'app-homeproductos',
   templateUrl: './homeproductos.page.html',
   styleUrls: ['./homeproductos.page.scss'],
+  standalone: false
 })
 export class HomeproductosPage implements OnInit {
 
