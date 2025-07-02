@@ -16,7 +16,15 @@
 
   <ion-button expand="full" (click)="takePicture()" >Tomar Foto</ion-button>
    <ion-button expand="full" (click)="openGallery()" >Subir Foto</ion-button>
+  <hr/>
 
+     <ion-button expand="block" (click)="scheduleSimpleNotification()">Notificacion Simple</ion-button>
+    <ion-button expand="block" (click)="scheduleRepeatedNotification()">Notificacion Programada</ion-button>
+
+    <ion-button expand="block" color="warning" (click)="listenPendingNotifications()">Notificaciones Pendientes</ion-button>
+    <ion-button expand="block" color="danger" (click)="cancelAllNotificactions()">Cancelar Notificaciones</ion-button>
+
+   <hr/>
   <div *ngIf="capturedImage">
     <h2>Imagen Tomada:</h2>
     <img [src]="capturedImage" alt="imagen ionic" style="max-width: 100%; height:auto;"     />

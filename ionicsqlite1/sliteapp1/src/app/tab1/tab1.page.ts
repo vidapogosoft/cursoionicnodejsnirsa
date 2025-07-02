@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { Platform } from '@ionic/angular';
 import {Camera, CameraResultType, CameraSource, Photo} from '@capacitor/camera';
 import { Filesystem, Directory } from '@capacitor/filesystem';
+import { LocalNotifications } from '@capacitor/local-notifications';
+
 
 @Component({
   selector: 'app-tab1',
@@ -9,12 +11,81 @@ import { Filesystem, Directory } from '@capacitor/filesystem';
   styleUrls: ['tab1.page.scss'],
   standalone: false,
 })
-export class Tab1Page {
+export class Tab1Page implements OnInit {
 
   capturedImage: string | undefined;
 
 
-  constructor() {}
+  constructor(private platform: Platform) {}
+
+  async ngOnInit() {
+      
+    await this.platform.ready().then( async () =>
+      {
+          const granted = await LocalNotifications.requestPermissions();
+          if(granted.display === "granted")
+          {
+              console.log("permiso concedido");
+          }
+          else{
+            console.log("permiso no concedido");
+          }
+
+      });
+    
+  }
+
+  async scheduleSimpleNotification()
+  {
+    await LocalNotifications.schedule(
+      {
+        notifications:[
+          {
+            title: "Titulo: notificacion local 1",
+            body: "Body: notificacion desde ionico mobile",
+            id: 1,
+            schedule: {at: new Date(Date.now() + 100 * 5)},
+            extra:{ data: "Dato extra de la notificacion"} 
+          }
+        ]
+      });
+      alert("Notificacion se presenta en 5 segundos");
+  }
+
+  async scheduleRepeatedNotification()
+  {
+    await LocalNotifications.schedule(
+      {
+        notifications:[
+          {
+            title: "Titulo: notificacion local 2",
+            body: "Body: notificacion desde ionico mobile",
+            id: 2,
+            schedule: {
+              every: "minute"
+            },
+            extra:{ data: "Dato extra de la notificacion diaria"} 
+          }
+        ]
+      });
+      alert("Notificacion diaria");
+  }
+
+  async listenPendingNotifications()
+  {
+      const pending = await LocalNotifications.getPending();
+
+      console.log('Notificaciones pendientes:', pending.notifications);
+
+      alert(`Tienes ${pending.notifications.length} notificaciones pendientes en la consola.`);
+ 
+  }
+
+  async cancelAllNotificactions()
+  {
+    await LocalNotifications.cancel({ notifications: (await LocalNotifications.getPending()).notifications });
+    alert("Todas las notificaciones han sido canceladas");
+  }
 
   async takePicture()
   {

@@ -32,6 +32,7 @@
     "@capacitor/google-maps": "^7.0.2",
     "@capacitor/haptics": "7.0.1",
     "@capacitor/keyboard": "7.0.1",
+    "@capacitor/local-notifications": "^7.0.1",
     "@capacitor/status-bar": "7.0.1",
     "@ionic/angular": "^8.0.0",
     "@types/google.maps": "^3.58.1",
