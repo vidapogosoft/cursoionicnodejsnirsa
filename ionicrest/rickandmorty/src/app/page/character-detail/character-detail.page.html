@@ -1,13 +1,23 @@
-<ion-header [translucent]="true">
+<ion-header mode="md">
   <ion-toolbar>
-    <ion-title>character-detail</ion-title>
+    <ion-button slot="start">
+      <ion-back-button defaultHref="/home" ></ion-back-button>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">character-detail</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content mode="ios">
+<div class="glass-content ion-padding">
+  <div class="ion-text-center ion-padding-top" *ngIf="character">
+    <ion-avatar>
+      <img [src]="character.image">
+    </ion-avatar>
+    <h1>{{character.name}}</h1>
+    <div>Estatus: {{character.status == "Alive" ? "Vivo" : "Muerto"}}</div>
+    <ion-item lines="none">
+      <ion-icon slot="start" name="location-outline"></ion-icon>
+      <ion-label>Visto por primera vez: <br> <strong>{{character.origin.name}}</strong></ion-label>
+    </ion-item>
+  </div>
+</div>
 </ion-content>

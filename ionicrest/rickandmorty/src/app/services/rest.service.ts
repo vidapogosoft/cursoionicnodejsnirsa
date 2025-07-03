@@ -19,4 +19,11 @@ export class RestService {
     return this.http.get(environment.baseURL + environment.character, {params} );
   }
 
+  //filtrado de get
+  getCharacterById(id: string)
+  {
+    return this.http.get(environment.baseURL + environment.character + '/' + id );
+  }
+
+
 }

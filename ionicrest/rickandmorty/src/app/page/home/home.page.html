@@ -7,8 +7,13 @@
 <ion-content [fullscreen]="true">
 
   <div class="glass-content" >
+
+    <ion-row size="12">
+      <ion-searchbar placeholder="Buscar....." [(ngModel)] = "params.name" (ionInput) = "searchCharacters()"  [debounce]="250" ></ion-searchbar>
+    </ion-row>
+
     <ion-row>
-      <ion-col *ngFor="let c of characters" size-lg="6" size-md="6" size-sm="6" size="12">
+      <ion-col routerLink="/character-detail/{{c.id}}"  *ngFor="let c of characters" size-lg="6" size-md="6" size-sm="6" size="12">
         <ion-card>
           <ion-grid>
             <ion-row>
@@ -29,6 +34,10 @@
         </ion-card>
       </ion-col>
     </ion-row>
+
+    <ion-infinite-scroll threshold="25%" position="bottom" (ionInfinite)="getCharacters($event)" >
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </div>
 
 </ion-content>
