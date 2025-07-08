@@ -1,0 +1,7 @@
+{
+  "name": "indexdb",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
