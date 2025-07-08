@@ -25,3 +25,77 @@
 #container a {
   text-decoration: none;
 }
+
+
+ion-list {
+
+  background: var(--ion-background-color, #fff); // Asegura que la lista tenga un fondo
+
+}
+ 
+ion-item {
+
+  --inner-padding-end: 0; // Ajusta el padding interno si es necesario
+
+  --padding-start: 16px;
+
+  align-items: center; // Alinea los elementos verticalmente en el centro
+ 
+  ion-label {
+
+    padding-left: 10px; // Espacio entre checkbox y texto
+
+    cursor: pointer; // Indica que el texto es clickeable
+
+    font-size: 1.1em; // Aumenta ligeramente el tamaño del texto
+ 
+    &.completed {
+
+      text-decoration: line-through;
+
+      color: var(--ion-color-medium, #92949c); // Color para tareas completadas
+
+    }
+
+  }
+ 
+  ion-input {
+
+    --padding-start: 0; // Elimina el padding extra del input si no es necesario
+
+  }
+ 
+  ion-checkbox {
+
+    --checkbox-background: var(--ion-color-light, #f4f5f8);
+
+    --checkbox-background-checked: var(--ion-color-primary, #3880ff);
+
+    --border-color: var(--ion-color-medium, #92949c);
+
+    --border-color-checked: var(--ion-color-primary, #3880ff);
+
+  }
+ 
+  ion-button[color='danger'] {
+
+    --padding-start: 10px;
+
+    --padding-end: 10px;
+
+    min-width: 44px; // Asegura que el botón tenga un tamaño mínimo para ser clickeable fácilmente
+
+  }
+
+}
+ 
+.ion-text-center {
+
+  padding: 15px 0; // Centra y añade padding al mensaje de "no hay tareas"
+
+  color: var(--ion-color-medium, #92949c);
+
+  font-style: italic;
+
+}
+ 
