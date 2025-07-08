@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonButton, IonButtons, IonIcon, IonLabel } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, 
+  IonButton, IonButtons, IonIcon, IonLabel, IonCheckbox, IonInput } 
+from '@ionic/angular/standalone';
 import { IndexedsvcService } from '../services/indexedsvc.service';
 import { addIcons } from 'ionicons';
 import { trashOutline, add } from 'ionicons/icons';
-import { IonInput } from "../../../node_modules/@ionic/angular/standalone/directives/input";
-import { IonCheckbox } from "../../../node_modules/@ionic/angular/standalone/directives/checkbox";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -103,7 +103,7 @@ toggleCompleted(todo: TodoItem ):void {
 
 
 
-deleteTodo(id: number ):void {
+deleteTodo(id: number | undefined ): void {
 
   if(id === undefined) return;
 
