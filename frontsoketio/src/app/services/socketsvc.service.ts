@@ -12,8 +12,8 @@ export class SocketsvcService {
   private mesageSubject: Subject<{user:string, message:string}> = new Subject();
 
   public message: Observable<{user:string, message:string}> = this.mesageSubject.asObservable();
- 
-  constructor(ngZone: NgZone) { }
+   
+  constructor(private ngZone: NgZone) { }
 
   public setupSocketConnection(): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -26,8 +26,7 @@ export class SocketsvcService {
       this.socket.on('connect', () => {
         console.log('conectado al servidor principal');
         //aqui va mi metodo o lo que deseo transferiri
-
-
+        this.addTransferData();
         resolve();
       });
 
@@ -43,6 +42,36 @@ export class SocketsvcService {
 
     });
 
+  }
+
+  public sendMessage(user: string, message: string): Promise<void> {
+    if(this.socket && this.socket.connected)
+    { 
+      this.socket.emit('sendMessage', {user, message});
+      return Promise.resolve();
+    }
+    else{
+      console.warn('Socket no conectado. No se pudo enviar mensaje');
+      return Promise.reject('Socket no conectado');
+    }
+    
+  }
+
+  private addTransferData(): void {
+    this.socket.on('receiveMessage', (data: {user:string; message: string}) => {
+        this.ngZone.run( () => {
+            console.log('mensaje recibido en servidor central', data.user, data.message);
+            this.mesageSubject.next(data);
+        });
+    });
+  }
+
+  public disconnetSocket(): void {
+    if(this.socket)
+    {
+      this.socket.disconnect();
+      console.log('socket desconectado');
+    }
   }
 
 
