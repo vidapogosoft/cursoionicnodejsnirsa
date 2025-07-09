@@ -1,20 +1,29 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Envio de mesnajes con socket.io =>  ({{currentUser}})
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  
+  <ion-list>
+    <ion-item *ngFor="let msg of messages">
+      <ion-label>
+        <h2>{{msg.user}}</h2>
+        <p>{{msg.text}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-footer>
+    <ion-toolbar>
+      <ion-item>
+        <ion-input [(ngModel)] = "messageText" placeholder="Esribe tu mensaje ..." (Keyup.enter) = "sendMessage()"  ></ion-input>
+        <ion-button slot="end" (click)="sendMessage()"  >Enviar</ion-button>
+      </ion-item>
+    </ion-toolbar>
+  </ion-footer>
+
 </ion-content>
