@@ -5,7 +5,7 @@
 
   <ion-card-content>
     <div class="signature-container">
-        <canvas #signatureCanvas (window:resize)="onResize()"  ></canvas>
+        <canvas #signatureCanvas></canvas>
     </div>
     <ion-button expand="block" (click)="saveSignature()" >Guardar Firma</ion-button>
     <ion-button expand="block" color="danger" (click)="clearSignature()">Limpiar Firma</ion-button>

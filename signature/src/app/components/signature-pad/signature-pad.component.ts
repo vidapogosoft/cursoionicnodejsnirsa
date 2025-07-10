@@ -26,8 +26,8 @@ export class SignaturePadComponent  implements AfterViewInit {
     const canvas = this.signaturecanvas.nativeElement;
 
     //establecer dimensiones
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+    //canvas.width = canvas.offsetWidth;
+    //canvas.height = canvas.offsetHeight;
 
     this.signaturepad = new SignaturePad( canvas, {
 
