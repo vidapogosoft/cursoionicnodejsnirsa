@@ -1,0 +1,7 @@
+{
+  "name": "signature",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

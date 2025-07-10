@@ -1,0 +1,28 @@
+.signature-container {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  height: 200px; /* Altura fija para el área de firma */
+  width: 100%;
+  overflow: hidden; /* Asegura que el contenido no se desborde */
+ 
+  canvas {
+    display: block; // Asegura que el canvas llene su contenedor correctamente
+    width: 100%;
+    height: 100%;
+  }
+}
+ 
+.signature-display {
+  margin-top: 20px;
+  text-align: center;
+ 
+  .saved-signature-img {
+    border: 1px solid #ddd;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+  }
+}

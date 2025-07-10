@@ -1,0 +1,19 @@
+<ion-card>
+  <ion-card-header>
+        <ion-card-title>Firmado Por</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <div class="signature-container">
+        <canvas #signatureCanvas (window:resize)="onResize()"  ></canvas>
+    </div>
+    <ion-button expand="block" (click)="saveSignature()" >Guardar Firma</ion-button>
+    <ion-button expand="block" color="danger" (click)="clearSignature()">Limpiar Firma</ion-button>
+  
+    <div *ngIf = "signatureImage" class="signature-display">
+      <h3>Tu Firma</h3>
+      <img [src]="signatureImage"  class="saved-signature-img"  >
+    </div>
+
+  </ion-card-content>
+</ion-card>
